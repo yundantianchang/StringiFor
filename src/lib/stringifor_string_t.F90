@@ -15,6 +15,7 @@ public :: CK
 public :: string
 
 integer, parameter :: CK = selected_char_kind('DEFAULT') !< Default character kind.
+integer, parameter :: len_of_iomsg =100
 
 type :: string
   !< OOP designed string class.
@@ -3806,7 +3807,7 @@ contains
    integer,                   intent(in)    :: v_list(:)   !< Edit descriptor list.
    integer,                   intent(out)   :: iostat      !< IO status code.
    character(len=*),          intent(inout) :: iomsg       !< IO status message.
-   character(len=len(iomsg))                :: local_iomsg !< Local variant of iomsg, so it doesn't get inappropriately redefined.
+   character(len=len_of_iomsg)                :: local_iomsg !< Local variant of iomsg, so it doesn't get inappropriately redefined.
    character(kind=CK, len=1)                :: delim       !< String delimiter, if any.
    character(kind=CK, len=100)              :: temporary   !< Temporary storage string.
 
@@ -4027,7 +4028,7 @@ contains
    integer,                   intent(out)   :: iostat       !< IOSTAT error code, non-zero on error.
    character(*),              intent(inout) :: iomsg        !< IOMSG explanatory message - only defined if iostat is non-zero.
    character(10)                            :: delim_buffer !< Buffer for INQUIRE about DELIM, sized for APOSTROHPE.
-   character(len(iomsg))                    :: local_iomsg  !< Local variant of iomsg, so it doesn't get inappropriately redefined.
+   character(len=len_of_iomsg)                    :: local_iomsg  !< Local variant of iomsg, so it doesn't get inappropriately redefined.
 
    ! get the string representation of the changeable mode
    inquire(unit, delim=delim_buffer, iostat=iostat, iomsg=local_iomsg)
@@ -4074,7 +4075,7 @@ contains
    character(kind=CK, len=1), intent(out)   :: ch          !< The non-blank character read. Not valid if IOSTAT is non-zero.
    integer,                   intent(out)   :: iostat      !< IO status code.
    character(kind=CK, len=*), intent(inout) :: iomsg       !< IO status message.
-   character(len(iomsg))                    :: local_iomsg !< Local variant of iomsg, so it doesn't get inappropriately redefined.
+   character(len=len_of_iomsg)                    :: local_iomsg !< Local variant of iomsg, so it doesn't get inappropriately redefined.
 
    do
       call get_next_non_blank_character_this_record(unit=unit, ch=ch, iostat=iostat, iomsg=local_iomsg)
@@ -4104,7 +4105,7 @@ contains
    integer,                   intent(out)   :: iostat         !< IO status code.
    character(kind=CK, len=*), intent(inout) :: iomsg          !< IO status message.
    character(5)                             :: decimal_buffer !< Buffer for INQUIRE about DECIMAL, sized for POINT or COMMA.
-   character(len(iomsg))                    :: local_iomsg    !< Local variant of iomsg, so it doesn't get inappropriately redefined.
+   character(len=len_of_iomsg)                    :: local_iomsg    !< Local variant of iomsg, so it doesn't get inappropriately redefined.
 
    inquire(unit, decimal=decimal_buffer, iostat=iostat, iomsg=local_iomsg)
    if (iostat == iostat_inquire_internal_unit) then
