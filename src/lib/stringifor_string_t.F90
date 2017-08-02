@@ -142,7 +142,7 @@ type :: string
                               string_gt_character, &
                               character_gt_string                   !< Greater than operator overloading.
     ! IO
-#ifndef __GFORTRAN__
+#ifdef _FORTRAN_TYPE_IO
     generic :: read(formatted) => read_formatted       !< Formatted input.
     generic :: write(formatted) => write_formatted     !< Formatted output.
     generic :: read(unformatted) => read_unformatted   !< Unformatted input.
@@ -209,7 +209,7 @@ type :: string
     procedure, private, pass(lhs) :: string_gt_character !< Greater than to character logical operator.
     procedure, private, pass(rhs) :: character_gt_string !< Greater than to character (inverted) logical operator.
     ! IO
-#ifndef __GFORTRAN__
+#ifdef _FORTRAN_TYPE_IO
     procedure, private, pass(dtv) :: read_formatted                !< Formatted input.
     procedure, private, pass(dtv) :: read_delimited                !< Read a delimited input.
     procedure, private, pass(dtv) :: read_undelimited              !< Read an undelimited input.
@@ -3794,7 +3794,7 @@ contains
    endfunction character_gt_string
 
    ! IO
-#ifndef __GFORTRAN__
+#ifdef _FORTRAN_TYPE_IO
    subroutine read_formatted(dtv, unit, iotype, v_list, iostat, iomsg)
    !< Formatted input.
    !<
