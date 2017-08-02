@@ -2645,7 +2645,7 @@ contains
       end_             = len(self%raw) ; if (present(end))             end_             = end
       ignore_null_eof_ = .false.       ; if (present(ignore_null_eof)) ignore_null_eof_ = ignore_null_eof
       if (ignore_null_eof_.and.(self%raw(end_:end_) == char(0))) end_ = end_ - 1
-      if (len(suffix) <= len(self%raw(start_:end_))) then
+      if (len(suffix) <= (end_-start_+1)) then
          end_with = self%raw(end_-len(suffix)+1:end_) == suffix
       endif
    endif
@@ -3040,7 +3040,7 @@ contains
    if (allocated(self%raw)) then
       start_ = 1             ; if (present(start)) start_ = start
       end_   = len(self%raw) ; if (present(end))   end_   = end
-      if (len(prefix)<=len(self%raw(start_:end_))) then
+      if (len(prefix)<=(end_-start_+1)) then
          start_with = index(self%raw(start_:end_), prefix)==1
       endif
    endif
