@@ -1700,7 +1700,7 @@ contains
    do
       line%raw = ''
       call line%read_line(unit=unit, form=form, iostat=iostat_, iomsg=iomsg_)
-      if (iostat_/=0.and..not.is_iostat_eor(iostat_)) then
+      if (iostat_/=0 .and. .not. (is_iostat_eor(iostat_) .or. is_iostat_end(iostat_))) then
          exit
       elseif (line/='') then
          lines%raw = lines%raw//line%raw//new_line('a')
